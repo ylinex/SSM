@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context" 
+        xmlns:mvc="http://www.springframework.org/schema/mvc"
+        xmlns:tx="http://www.springframework.org/schema/task"
+        xmlns:task="http://www.springframework.org/schema/task"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+                            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd 
+                            http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+                            http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!-- 只需要扫描包中的Controller注解 -->
+    <context:component-scan base-package="com.ischoolbar.programmer.controller">
+     <context:include-filter type="annotation"
+        expression="org.springframework.stereotype.Controller"/>
+     </context:component-scan>
+     
+     <!--启动MVC注解驱动-->
+     <mvc:annotation-driven></mvc:annotation-driven>
+     
+     <!--启动定时任务 -->
+    <task:annotation-driven/>
+     
+     <!-- 静态资源处理 -->
+     <mvc:default-servlet-handler/>
+     
+     <!-- 配置视图解析器 -->
+      <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/view/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    
+    <!-- 文件上传 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+          <!-- 上传文件大小限制 -->
+          <property name="maxUploadSize">
+          <value>10485760</value>
+          </property>
+            <!-- 请求编码格式 -->
+            <property name="defaultEncoding">
+            <value>UTF-8</value>
+            </property>   
+    </bean>
+    
+    <!-- 后台访问拦截器-->
+     <!-- 
+     <mvc:interceptors>
+      <mvc:interceptor>
+        <mvc:mapping path="/**/"/>
+         <!-- <mvc:mapping path="/grade/*"/> -->
+        <mvc:exclude-mapping path="/system/login"/>
+        <mvc:exclude-mapping path="/system/get_cpacha"/>
+        <mvc:exclude-mapping path="/h-ul/**"/>
+        <mvc:exclude-mapping path="/easyul/**"/>
+        <mvc:exclude-mapping path="/home-resorces/**"/>
+        <mvc:exclude-mapping path="/home/**"/>
+        <bean class="com.ischoolbar.programmer.interceptor.LoginInterceptor"></bean>
+     </mvc:interceptor>
+    </mvc:interceptors>  
+       -->
+
+</beans>

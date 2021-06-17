@@ -1,0 +1,3 @@
+INDEX VERSION 1.3+E:\±œ“µ…Ëº∆\StudentManagerSSM\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+2064691495.index
+4188824508.index
